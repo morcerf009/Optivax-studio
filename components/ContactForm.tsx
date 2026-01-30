@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Send, CheckCircle } from 'lucide-react';
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
+
 
 const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -35,7 +37,6 @@ const ContactForm: React.FC = () => {
     setStatus('loading');
 
     try {
-      // Web3Forms API - sends email to optivaxglobal@gmail.com
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
@@ -43,12 +44,12 @@ const ContactForm: React.FC = () => {
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          access_key: '8ff86ecf-5127-405c-91f0-14dfb60bbb2d', // Replace with your key from web3forms.com
+          access_key: WEB3FORMS_KEY,
           name: formData.name,
           email: formData.email,
           project_type: formData.projectType,
           message: formData.message,
-          subject: `New Quote Request from ${formData.name} - ${formData.projectType}`,
+          subject: `New Quote Request from ${formData.name}`,
           from_name: 'Optivax Studios Website',
         })
       });

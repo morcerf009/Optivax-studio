@@ -8,10 +8,10 @@ const About: React.FC = () => {
   ];
 
   const images = [
-    "https://images.unsplash.com/photo-1544273677-277914c9ad4a?q=80&w=600&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=600&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop"
+    "/about-1.jpg",
+    "/about-2.jpg",
+    "/about-3.jpg",
+    "/about-4.jpg"
   ];
 
   return (
@@ -28,7 +28,7 @@ const About: React.FC = () => {
           <p className="text-lg text-slate-400 mb-10 leading-relaxed max-w-xl">
             At Optivax Studios, we believe that great stories deserve more than just a "quick gig." They deserve a dedicated team who understands the nuances of visual flow, character depth, and international publishing standards.
           </p>
-          
+
           <div className="space-y-8">
             {highlights.map((item) => (
               <div key={item.title} className="flex gap-5 group">

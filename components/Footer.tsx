@@ -1,5 +1,6 @@
 import React from 'react';
 import { SOCIAL_LINKS } from '../constants.tsx';
+import TrustBadges from './TrustBadges.tsx';
 
 const Footer: React.FC = () => {
   return (
@@ -28,7 +29,7 @@ const Footer: React.FC = () => {
             </p>
             <div className="flex gap-4">
               {SOCIAL_LINKS.map((social) => (
-                <a 
+                <a
                   key={social.name}
                   href={social.url}
                   target="_blank"
@@ -62,11 +63,16 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
+        <div className="pb-8">
+          <TrustBadges variant="compact" />
+        </div>
+
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8 text-[10px] font-black uppercase tracking-[0.3em] text-slate-600">
           <p>© {new Date().getFullYear()} Optivax Studios. All rights reserved.</p>
+          <p className="text-indigo-400">Designed and Created by MZL</p>
           <div className="flex gap-10">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+            <a href="#privacy-policy" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#terms-of-service" className="hover:text-white transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>

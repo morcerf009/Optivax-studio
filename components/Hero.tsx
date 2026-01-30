@@ -1,4 +1,5 @@
 import React from 'react';
+import TrustBadges from './TrustBadges.tsx';
 
 const PartnerBadge = ({ name, subText }: { name: string; subText: string }) => (
   <div className="flex flex-col opacity-30 hover:opacity-100 transition-all cursor-default">
@@ -57,6 +58,10 @@ const Hero: React.FC = () => {
               <PartnerBadge name="AMAZON" subText="KDP Certified" />
               <PartnerBadge name="WEBTOON" subText="Pro Layouts" />
               <PartnerBadge name="APPLE" subText="Hi-Res Ebook" />
+            </div>
+
+            <div className="mt-12">
+              <TrustBadges variant="hero" />
             </div>
           </div>
 

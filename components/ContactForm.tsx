@@ -28,18 +28,44 @@ const ContactForm: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setStatus('loading');
 
-    // Simulate API call
-    setTimeout(() => {
-      setStatus('success');
-      setFormData({ name: '', email: '', projectType: 'Comic', message: '' });
-      setErrors({});
-    }, 1500);
+    try {
+      // Web3Forms API - sends email to optivaxglobal@gmail.com
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: '8ff86ecf-5127-405c-91f0-14dfb60bbb2d', // Replace with your key from web3forms.com
+          name: formData.name,
+          email: formData.email,
+          project_type: formData.projectType,
+          message: formData.message,
+          subject: `New Quote Request from ${formData.name} - ${formData.projectType}`,
+          from_name: 'Optivax Studios Website',
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setStatus('success');
+        setFormData({ name: '', email: '', projectType: 'Comic', message: '' });
+        setErrors({});
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setStatus('error');
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -69,6 +95,26 @@ const ContactForm: React.FC = () => {
           className="text-indigo-400 font-black uppercase tracking-widest text-xs hover:underline"
         >
           Send another message
+        </button>
+      </div>
+    );
+  }
+
+  if (status === 'error') {
+    return (
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center py-20 animate-fade-in">
+        <div className="w-20 h-20 bg-red-500/20 rounded-full flex items-center justify-center text-red-500 mx-auto mb-6">
+          <Send className="w-10 h-10" />
+        </div>
+        <h2 className="text-3xl font-black text-white mb-4 uppercase tracking-tighter">Something Went Wrong</h2>
+        <p className="text-slate-400 max-w-md mx-auto mb-8 text-lg font-medium">
+          We couldn't send your request. Please try again or email us directly at optivaxglobal@gmail.com
+        </p>
+        <button
+          onClick={() => setStatus('idle')}
+          className="text-indigo-400 font-black uppercase tracking-widest text-xs hover:underline"
+        >
+          Try again
         </button>
       </div>
     );

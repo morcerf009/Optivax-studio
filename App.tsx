@@ -9,9 +9,12 @@ import About from './components/About.tsx';
 import Testimonials from './components/Testimonials.tsx';
 import ContactForm from './components/ContactForm.tsx';
 import Footer from './components/Footer.tsx';
+import PrivacyPolicy from './components/PrivacyPolicy.tsx';
+import TermsOfService from './components/TermsOfService.tsx';
 
 const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [currentPage, setCurrentPage] = useState<'home' | 'privacy' | 'terms'>('home');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +23,49 @@ const App: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash === '#privacy-policy') {
+        setCurrentPage('privacy');
+        window.scrollTo(0, 0);
+      } else if (hash === '#terms-of-service') {
+        setCurrentPage('terms');
+        window.scrollTo(0, 0);
+      } else {
+        setCurrentPage('home');
+      }
+    };
+
+    handleHashChange();
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  if (currentPage === 'privacy') {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Navbar scrolled={scrolled} />
+        <main className="flex-grow">
+          <PrivacyPolicy />
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (currentPage === 'terms') {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Navbar scrolled={scrolled} />
+        <main className="flex-grow">
+          <TermsOfService />
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
